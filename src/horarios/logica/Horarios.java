@@ -61,9 +61,6 @@ public class Horarios {
             f[i]=new Funcion(coeficientes[i], exponentes[i]);
         }
     }
-    
-    public void calcularNotas(){
-        notas=new 
-    }
+
     
 }
