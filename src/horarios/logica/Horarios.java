@@ -43,6 +43,8 @@ public class Horarios {
     private double[][] promedios;
     //promedio máximo que se puede conseguir con n proyectos y H horas   
     private double promedio;
+    //la nota de cada proyecto
+    private long[] notasProyecto;
 
     /**
      * Crea un horario para invertir en los proyectos y maximizar el promedio de
@@ -60,12 +62,15 @@ public class Horarios {
         for (int i = 0; i < coeficientes.length; i++) {
             f[i] = new Funcion(coeficientes[i], exponentes[i]);
         }
+        calcularNotas();
+        calcularPromedio();
+        hanselAndGretel();
     }
 
     /**
      * Calcula todas las posibles notas de un proyecto con un máximo de H horas
      */
-    public void calcularNotas() {
+    private void calcularNotas() {
         notas = new long[n][H + 1];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < H + 1; j++) {
@@ -78,7 +83,7 @@ public class Horarios {
      * Programación dinámica para calcular el mayor promedio alcanzable con n
      * proyectos y H horas dejando un rastro
      */
-    public void calcularPromedio() {
+    private void calcularPromedio() {
         promedios=new double[n][H+1];
         rastro= new Posicion[n][H+1];
         //Caso base con 1 solo proyecto
@@ -88,15 +93,71 @@ public class Horarios {
         }
         //Calcula la nota máxima con 0 horas invertidas
         long max=Long.MIN_VALUE;
+        Posicion posMax=null;
         for (int i = 1; i < n; i++) {
-            if(notas[0][i]>max){
-                max=notas[0][i];
+            if(notas[i][0]>max){
+                max=notas[i][0];
+                posMax=new Posicion( i,0);
             }
         }
         //Caso base con 0 horas
         for (int i = 0; i < n; i++) {
             promedios[i][0]=max/n;
+            rastro[i][0]=posMax;
         }
-        
+        //Resto de la matriz
+        for (int i = 1; i < n; i++) {
+            for (int j = 1; j < H+1; j++) {
+                double maxi=Double.MIN_VALUE;
+                //Maximo de invertir el tiempo en un solo proyecto
+                for (int k = 0; k < i; k++) {
+                    if(notas[k][j]/n>maxi){
+                        maxi=notas[k][j]/n;
+                        posMax=null;
+                    }
+                }
+                //o maximo de invertir 0<k<=j+1 horas en el último, y el resto en los otros
+                for (int k = 0; k < j+1; k++) {
+                    if(notas[i][k]/n+promedios[i-1][j-k]>maxi){
+                        maxi=notas[i][k]/n+promedios[i-1][j-k];
+                        posMax=new Posicion(i-1, j-k);
+                    }
+                }
+                promedios[i][j]=maxi;
+                rastro[i][j]=posMax;
+            }
+        }
+        promedio=promedios[n-1][H];
+    }
+    private void hanselAndGretel(){
+        Posicion prev=rastro[n-1][H];
+        horasPorProyecto=new int[n];
+        notasProyecto=new long[n];
+        while(prev!=null){
+            
+            horasPorProyecto[prev.getPoryecto()]=prev.getHoras();
+            notasProyecto[prev.getPoryecto()]=notas[prev.getPoryecto()][prev.getHoras()];
+        }
+    }
+
+    /**
+     * @return the horasPorProyecto
+     */
+    public int[] getHorasPorProyecto() {
+        return horasPorProyecto;
+    }
+
+    /**
+     * @return the promedio
+     */
+    public double getPromedio() {
+        return promedio;
+    }
+
+    /**
+     * @return the notasProyecto
+     */
+    public long[] getNotasProyecto() {
+        return notasProyecto;
     }
 }

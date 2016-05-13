@@ -9,9 +9,9 @@ package horarios.logica;
  */
 public class Posicion {
     
-    private int x;
+    private int poryecto;
     
-    private int y;
+    private int horas;
     
     /**
      * Crea una posicion
@@ -19,36 +19,36 @@ public class Posicion {
      * @param y
      */
     public Posicion(int x, int y){
-        this.x=x;
-        this.y=y;
+        this.poryecto=x;
+        this.horas=y;
     }
 
     /**
-     * @return the x
+     * @return the poryecto
      */
-    public int getX() {
-        return x;
+    public int getPoryecto() {
+        return poryecto;
     }
 
     /**
-     * @param x the x to set
+     * @param poryecto the poryecto to set
      */
-    public void setX(int x) {
-        this.x = x;
+    public void setPoryecto(int poryecto) {
+        this.poryecto = poryecto;
     }
 
     /**
-     * @return the y
+     * @return the horas
      */
-    public int getY() {
-        return y;
+    public int getHoras() {
+        return horas;
     }
 
     /**
-     * @param y the y to set
+     * @param horas the horas to set
      */
-    public void setY(int y) {
-        this.y = y;
+    public void setHoras(int horas) {
+        this.horas = horas;
     }
-    
+
 }
