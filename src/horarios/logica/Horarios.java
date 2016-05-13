@@ -62,6 +62,7 @@ public class Horarios {
         this.H = H;
         this.n = n;
         f = new Funcion[n];
+        System.out.println(n+" "+coeficientes.size());
         for (int i = 0; i < coeficientes.size(); i++) {
             f[i] = new Funcion(coeficientes.get(i));
         }
