@@ -31,6 +31,6 @@ public class horariosTest {
         tmp[0]=2;tmp[1]=1;coeficientes.add(tmp);
         Horarios hor = new Horarios(n, h,coeficientes);
         //System.out.println(hor.getPromedio()+"\n"+Arrays.toString(hor.getHorasPorProyecto())+"\n"+Arrays.toString(hor.getNotasProyecto()));
-        Assert.assertEquals("No calcula adecuadamente el promedio", hor.getPromedio(), 6.5, 0);
+        Assert.assertEquals("No calcula adecuadamente el promedio", hor.getPromedio(), 6.5, 0 );
     }
 }
