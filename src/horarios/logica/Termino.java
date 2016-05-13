@@ -26,7 +26,6 @@ public class Termino {
      * @param h
      */
     public int evaluar(int h){
-        //System.out.println("eval ter: "+coeficiente+" "+h+" "+exponente);
         return coeficiente*(int) Math.pow(h, exponente);
     }
 

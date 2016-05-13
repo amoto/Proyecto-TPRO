@@ -102,16 +102,17 @@ public class HorariosGUI extends javax.swing.JFrame {
         });
 
         mostrarFunciones.setBorder(javax.swing.BorderFactory.createTitledBorder("Funciones"));
+        mostrarFunciones.setPreferredSize(new java.awt.Dimension(500, 500));
 
         javax.swing.GroupLayout mostrarFuncionesLayout = new javax.swing.GroupLayout(mostrarFunciones);
         mostrarFunciones.setLayout(mostrarFuncionesLayout);
         mostrarFuncionesLayout.setHorizontalGroup(
             mostrarFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 363, Short.MAX_VALUE)
+            .addGap(0, 490, Short.MAX_VALUE)
         );
         mostrarFuncionesLayout.setVerticalGroup(
             mostrarFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 502, Short.MAX_VALUE)
+            .addGap(0, 478, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout ingresarFuncionLayout = new javax.swing.GroupLayout(ingresarFuncion);
@@ -230,9 +231,9 @@ public class HorariosGUI extends javax.swing.JFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(48, 48, 48)
                                 .addComponent(informacionProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(mostrarFunciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -292,6 +293,7 @@ public class HorariosGUI extends javax.swing.JFrame {
       try{
           mostrarFunciones.removeAll();
           mostrarFunciones.revalidate();
+          
           numFunciones=0;
           n=(int) proyectos.getValue();
           H=(int) horas.getValue();
@@ -310,16 +312,24 @@ public class HorariosGUI extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         if(numFunciones<n){
+            
             mostrarFunciones.setLayout(new GridLayout(n,1));
             numFunciones++;
             int [] val=new int[model.length];
             String funcion="Función "+Integer.toString(numFunciones)+": ";
             for (int i = 0; i <= grado; i++) {
-                funcion+=" "+model[i].getValue().toString()+"h^ "+Integer.toString(i)+"+";
+                if(i<grado && i>0)
+                    funcion+=" "+model[i].getValue().toString()+"h^ "+Integer.toString(i)+"+";
+                else if(i>0)
+                    funcion+=" "+model[i].getValue().toString()+"h^ "+Integer.toString(i);
+                else if(i==0 && i<grado)
+                    funcion+=" "+model[i].getValue().toString()+"+";
+                else
+                    funcion+=" "+model[i].getValue().toString();
                 val[i]=(int) model[i].getValue();
             }
             coeficientes.add(val);
-            System.out.println(Arrays.toString(val));
+            //System.out.println(Arrays.toString(val));
             JLabel fi=new JLabel(funcion);
             mostrarFunciones.add(fi);
             jLabel4.setText("Función "+Integer.toString(numFunciones)+" de "+Integer.toString(n));
@@ -359,11 +369,15 @@ public class HorariosGUI extends javax.swing.JFrame {
         for (int i = 0; i <=grado; i++) {
             model[i]=new JSpinner(new SpinnerNumberModel(0,0,8,1));
             ingresarFuncion.add(model[i]);
-            if(i==grado){
-                ingresarFuncion.add(new javax.swing.JLabel(" h^ "+Integer.toString(i)));
-            }else{
+            if(i<grado && i>0)
                 ingresarFuncion.add(new javax.swing.JLabel(" h^ "+Integer.toString(i)+"+ "));
-            }
+            else if(i==grado)
+                ingresarFuncion.add(new javax.swing.JLabel(" h^ "+Integer.toString(i)));
+            else if(i==0 && i<grado)
+                ingresarFuncion.add(new javax.swing.JLabel("+ "));
+            else
+                ingresarFuncion.add(new javax.swing.JLabel( " "));
+            
 
         }
         ingresarFuncion.setVisible(true);

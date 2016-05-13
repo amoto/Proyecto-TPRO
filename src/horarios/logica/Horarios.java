@@ -39,7 +39,8 @@ public class Horarios {
     //Notas de cada proyecto invirtiendo 0<h<=H horas
     private double[][] notas;
     //rastro para hallar el numero de horas invertidas en cada proyecto
-    private Posicion[][] rastro;
+    //private Posicion[][] rastro;
+    private int [][] rastro;
     //horas que se deben dedicar a cada proyecto para conseguir la mayor nota en promedio
     private int[] horasPorProyecto;
     //promedio conseguido con i proyectos y h horas
@@ -88,49 +89,52 @@ public class Horarios {
      * proyectos y H horas dejando un rastro
      */
     private void calcularPromedio() {
-        promedios=new double[n][H+1];
-        rastro= new Posicion[n][H+1];
-        //Caso base con 1 solo proyecto
+        promedios=new double[n+1][H+1];
+        rastro= new int[n+1][H+1];
+        //Caso base con 0 proyectos
         for (int i = 0; i < H+1; i++) {
-            promedios[0][i]=notas[0][i]/n;
-            rastro[0][i]=null;
+            promedios[0][i]=0;
+            rastro[0][i]=i;
         }
+        
+        //Caso base con 0 horas
+        
+        for (int i = 1; i < n+1; i++) {
+            long sum=0;
+            for (int j = 0; j < i; j++) {
+                sum+=notas[j][0];
+            }
+            promedios[i][0]=sum;
+        }
+        
         //Resto de la matriz
-        for (int i = 1; i < n; i++) {
-            for (int j = 0; j < H+1; j++) {
-                Posicion posMax=null;
+        for (int i = 1; i < n+1; i++) {
+            for (int j = 1; j < H+1; j++) {
+                int gastado=0;
+                //Posicion posMax=null;
                 double maxi=Double.MIN_VALUE;
-                //Maximo de invertir el tiempo en un solo proyecto
-                for (int k = 0; k < i; k++) {
-                    if(notas[k][j]/n>maxi){
-                        maxi=notas[k][j]/n;
-                        posMax=null;
-                    }
-                }
                 //o maximo de invertir 0<k<=j+1 horas en el último, y el resto en los otros
                 for (int k = 0; k < j+1; k++) {
-                    if(notas[i][k]/n+promedios[i-1][j-k]>maxi){
-                        maxi=notas[i][k]/n+promedios[i-1][j-k];
-                        posMax=new Posicion(i-1, j-k);
+                    if(notas[i-1][k]+promedios[i-1][j-k]>maxi){
+                        maxi=notas[i-1][k]+promedios[i-1][j-k];
+                        gastado=k;
                     }
                 }
                 promedios[i][j]=maxi;
-                rastro[i][j]=posMax;
+                rastro[i][j]=gastado;
             }
         }
-        promedio=promedios[n-1][H];
+        promedio=promedios[n][H]/n;
         
     }
     private void hanselAndGretel(){
-        Posicion prev=rastro[n-1][H];
         horasPorProyecto=new int[n];
         notasProyecto=new double[n];
-        while(prev!=null){
-            horasPorProyecto[prev.getPoryecto()]=prev.getHoras();
-            prev=rastro[prev.getPoryecto()][prev.getHoras()];
-        }
-        for (int i = 0; i < n; i++) {
-            notasProyecto[i]=notas[i][horasPorProyecto[i]];
+        int prev=H-rastro[n][H];
+        for (int i = n-1; i >= 0; i--) {
+            horasPorProyecto[i]=rastro[i+1][prev];
+            notasProyecto[i]=notas[i][rastro[i+1][prev]];
+            prev=H-rastro[i+1][prev];
         }
     }
 
