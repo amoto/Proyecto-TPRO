@@ -13,10 +13,10 @@ public class Funcion {
     
     private ArrayList<Termino> polinomio;
     
-    public Funcion(int[] coeficientes, int [] exponentes){
+    public Funcion(int[] coeficientes){
         polinomio=new ArrayList<>();
         for (int i = 0; i < coeficientes.length; i++) {
-            polinomio.add(new Termino(coeficientes[i], exponentes[i]));
+            polinomio.add(new Termino(coeficientes[i], i));
         }
     }
     /**

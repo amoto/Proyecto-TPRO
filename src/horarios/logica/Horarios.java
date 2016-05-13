@@ -18,6 +18,9 @@ none of these quantities should appear as an exponent in your running time.
  */
 package horarios.logica;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 /**
  *
  * @author Julian Devia y Daniela Sepulveda
@@ -34,7 +37,7 @@ public class Horarios {
 
     //Datos de solución
     //Notas de cada proyecto invirtiendo 0<h<=H horas
-    private long[][] notas;
+    private double[][] notas;
     //rastro para hallar el numero de horas invertidas en cada proyecto
     private Posicion[][] rastro;
     //horas que se deben dedicar a cada proyecto para conseguir la mayor nota en promedio
@@ -44,7 +47,7 @@ public class Horarios {
     //promedio máximo que se puede conseguir con n proyectos y H horas   
     private double promedio;
     //la nota de cada proyecto
-    private long[] notasProyecto;
+    private double[] notasProyecto;
 
     /**
      * Crea un horario para invertir en los proyectos y maximizar el promedio de
@@ -55,12 +58,12 @@ public class Horarios {
      * @param coeficientes
      * @param exponentes
      */
-    public Horarios(int n, int H, int[][] coeficientes, int[][] exponentes) {
+    public Horarios(int n, int H, ArrayList<int[]> coeficientes) {
         this.H = H;
         this.n = n;
         f = new Funcion[n];
-        for (int i = 0; i < coeficientes.length; i++) {
-            f[i] = new Funcion(coeficientes[i], exponentes[i]);
+        for (int i = 0; i < coeficientes.size(); i++) {
+            f[i] = new Funcion(coeficientes.get(i));
         }
         calcularNotas();
         calcularPromedio();
@@ -71,10 +74,10 @@ public class Horarios {
      * Calcula todas las posibles notas de un proyecto con un máximo de H horas
      */
     private void calcularNotas() {
-        notas = new long[n][H + 1];
+        notas = new double[n][H + 1];
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < H + 1; j++) {
-                notas[i][j] = f[i].calcularNota(j);
+                notas[i][j] = f[i].calcularNota(j);   
             }
         }
     }
@@ -88,26 +91,13 @@ public class Horarios {
         rastro= new Posicion[n][H+1];
         //Caso base con 1 solo proyecto
         for (int i = 0; i < H+1; i++) {
-            promedios[0][i]=notas[0][i];
+            promedios[0][i]=notas[0][i]/n;
             rastro[0][i]=null;
-        }
-        //Calcula la nota máxima con 0 horas invertidas
-        long max=Long.MIN_VALUE;
-        Posicion posMax=null;
-        for (int i = 1; i < n; i++) {
-            if(notas[i][0]>max){
-                max=notas[i][0];
-                posMax=new Posicion( i,0);
-            }
-        }
-        //Caso base con 0 horas
-        for (int i = 0; i < n; i++) {
-            promedios[i][0]=max/n;
-            rastro[i][0]=posMax;
         }
         //Resto de la matriz
         for (int i = 1; i < n; i++) {
-            for (int j = 1; j < H+1; j++) {
+            for (int j = 0; j < H+1; j++) {
+                Posicion posMax=null;
                 double maxi=Double.MIN_VALUE;
                 //Maximo de invertir el tiempo en un solo proyecto
                 for (int k = 0; k < i; k++) {
@@ -128,15 +118,18 @@ public class Horarios {
             }
         }
         promedio=promedios[n-1][H];
+        
     }
     private void hanselAndGretel(){
         Posicion prev=rastro[n-1][H];
         horasPorProyecto=new int[n];
-        notasProyecto=new long[n];
+        notasProyecto=new double[n];
         while(prev!=null){
-            
             horasPorProyecto[prev.getPoryecto()]=prev.getHoras();
-            notasProyecto[prev.getPoryecto()]=notas[prev.getPoryecto()][prev.getHoras()];
+            prev=rastro[prev.getPoryecto()][prev.getHoras()];
+        }
+        for (int i = 0; i < n; i++) {
+            notasProyecto[i]=notas[i][horasPorProyecto[i]];
         }
     }
 
@@ -157,7 +150,7 @@ public class Horarios {
     /**
      * @return the notasProyecto
      */
-    public long[] getNotasProyecto() {
+    public double[] getNotasProyecto() {
         return notasProyecto;
     }
 }
