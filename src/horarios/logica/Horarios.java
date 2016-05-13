@@ -20,10 +20,10 @@ package horarios.logica;
 
 /**
  *
- * @author Julian Devia y Daniela Sepulveda 
+ * @author Julian Devia y Daniela Sepulveda
  */
 public class Horarios {
-    
+
     //Entrada del problema: 
     //Numero de proyectos
     private int n;
@@ -31,39 +31,72 @@ public class Horarios {
     private int H;
     // n funciones para calcular la nota de cada uno de los proyectos. 
     private Funcion[] f;
-   
+
     //Datos de solución
     //Notas de cada proyecto invirtiendo 0<h<=H horas
-    private int[][] notas;
+    private long[][] notas;
     //rastro para hallar el numero de horas invertidas en cada proyecto
     private Posicion[][] rastro;
-    //
+    //horas que se deben dedicar a cada proyecto para conseguir la mayor nota en promedio
     private int[] horasPorProyecto;
-    
+    //promedio conseguido con i proyectos y h horas
     private double[][] promedios;
-    
-    
-    
-    
+    //promedio máximo que se puede conseguir con n proyectos y H horas   
+    private double promedio;
+
     /**
-     * Crea un horario para invertir en los proyectos y maximizar el promedio de las notas
-     * 
+     * Crea un horario para invertir en los proyectos y maximizar el promedio de
+     * las notas
+     *
      * @param n
      * @param H
      * @param coeficientes
      * @param exponentes
      */
-    public Horarios(int n, int H, int[][] coeficientes, int[][] exponentes){
-        this.H=H;
-        this.n=n;
-        f=new Funcion[n];
+    public Horarios(int n, int H, int[][] coeficientes, int[][] exponentes) {
+        this.H = H;
+        this.n = n;
+        f = new Funcion[n];
         for (int i = 0; i < coeficientes.length; i++) {
-            f[i]=new Funcion(coeficientes[i], exponentes[i]);
+            f[i] = new Funcion(coeficientes[i], exponentes[i]);
         }
     }
-    
-    public void calcularNotas(){
-        notas=new 
+
+    /**
+     * Calcula todas las posibles notas de un proyecto con un máximo de H horas
+     */
+    public void calcularNotas() {
+        notas = new long[n][H + 1];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < H + 1; j++) {
+                notas[i][j] = f[i].calcularNota(j);
+            }
+        }
     }
-    
+
+    /**
+     * Programación dinámica para calcular el mayor promedio alcanzable con n
+     * proyectos y H horas dejando un rastro
+     */
+    public void calcularPromedio() {
+        promedios=new double[n][H+1];
+        rastro= new Posicion[n][H+1];
+        //Caso base con 1 solo proyecto
+        for (int i = 0; i < H+1; i++) {
+            promedios[0][i]=notas[0][i];
+            rastro[0][i]=null;
+        }
+        //Calcula la nota máxima con 0 horas invertidas
+        long max=Long.MIN_VALUE;
+        for (int i = 1; i < n; i++) {
+            if(notas[0][i]>max){
+                max=notas[0][i];
+            }
+        }
+        //Caso base con 0 horas
+        for (int i = 0; i < n; i++) {
+            promedios[i][0]=max/n;
+        }
+        
+    }
 }
