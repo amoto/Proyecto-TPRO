@@ -24,8 +24,8 @@ def recurr(n,h):
 def dp(n,h):
     global F,d
     d=[[0 for i in range(h+1)]for i in range(n)]
-    for i in range(h+1):
-        d[0][i]=F[0][i]
+    '''for i in range(h+1):
+        d[0][i]=F[0][i]'''
     for i in range(1,n):
         d[i][0]=max(F[j][0] for j in range(n))//i
     for i in range(1,n):
@@ -41,7 +41,6 @@ def main():
     print(recurr(n,h))
     dp(n,h)
     print(d[n-1][h])
-        
+
 
 main()
-    
