@@ -1,3 +1,3 @@
 # Proyecto-TPRO
-Julián Devia - Daniela Sepúlveda <3
+Julián Devia - Daniela Sepúlveda
 ![Ecuacion Recurrencia](recurrencia.jpg)
