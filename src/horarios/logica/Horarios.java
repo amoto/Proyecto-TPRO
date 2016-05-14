@@ -68,6 +68,7 @@ public class Horarios {
         }
         calcularNotas();
         calcularPromedio();
+        
         hanselAndGretel();
     }
 
@@ -131,11 +132,14 @@ public class Horarios {
     private void hanselAndGretel(){
         horasPorProyecto=new int[n];
         notasProyecto=new double[n];
-        int prev=rastro[n][H];
+        int prev=H;
+        for (int i = 0; i < rastro.length; i++) {
+            System.out.println(Arrays.toString(rastro[i]));
+        }
         for (int i = n-1; i >= 0; i--) {
             horasPorProyecto[i]=rastro[i+1][prev];
             notasProyecto[i]=notas[i][rastro[i+1][prev]];
-            prev=H-rastro[i+1][prev];
+            prev=prev-rastro[i+1][prev];
         }
     }
 
