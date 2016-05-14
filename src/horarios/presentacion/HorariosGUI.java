@@ -55,7 +55,7 @@ public class HorariosGUI extends javax.swing.JFrame {
         mostrarFunciones = new javax.swing.JPanel();
         ingresarFuncion = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        agregar = new javax.swing.JButton();
         calcular = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         prom = new javax.swing.JLabel();
@@ -128,11 +128,11 @@ public class HorariosGUI extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
         jLabel4.setText("Funcion i de n");
 
-        jButton2.setText("Agregar función");
-        jButton2.setToolTipText("");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        agregar.setText("Agregar función");
+        agregar.setToolTipText("");
+        agregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                agregarActionPerformed(evt);
             }
         });
 
@@ -217,7 +217,7 @@ public class HorariosGUI extends javax.swing.JFrame {
                                 .addGap(11, 11, 11))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(198, 198, 198)
-                                .addComponent(jButton2)
+                                .addComponent(agregar)
                                 .addGap(90, 90, 90)
                                 .addComponent(calcular)))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -267,7 +267,7 @@ public class HorariosGUI extends javax.swing.JFrame {
                         .addComponent(ingresarFuncion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jButton2)
+                            .addComponent(agregar)
                             .addComponent(calcular))
                         .addGap(24, 24, 24)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -293,7 +293,7 @@ public class HorariosGUI extends javax.swing.JFrame {
       try{
           mostrarFunciones.removeAll();
           mostrarFunciones.revalidate();
-          mostrarFunciones.updateUI();
+          mostrarFunciones.repaint();
           numFunciones=0;
           n=(int) proyectos.getValue();
           H=(int) horas.getValue();
@@ -302,6 +302,10 @@ public class HorariosGUI extends javax.swing.JFrame {
           }else{
             coeficientes=new ArrayList<>();
             grado=Integer.parseInt(JOptionPane.showInputDialog("Inserte el grado del polinomio: "));
+            while(grado>7){
+                JOptionPane.showMessageDialog (null, "El grado no es válido", "Error!", JOptionPane.ERROR_MESSAGE);
+                grado=Integer.parseInt(JOptionPane.showInputDialog("Inserte el grado del polinomio: "));
+            }
             model=new JSpinner[grado+1];
             habilitarIngresar();
           }
@@ -310,7 +314,7 @@ public class HorariosGUI extends javax.swing.JFrame {
       }
     }//GEN-LAST:event_comenzarActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void agregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarActionPerformed
         mostrarFunciones.setLayout(new GridLayout(n,1));
         if(numFunciones<n){
             numFunciones++;
@@ -332,10 +336,11 @@ public class HorariosGUI extends javax.swing.JFrame {
             JLabel fi=new JLabel(funcion);
             mostrarFunciones.add(fi);
             jLabel4.setText("Función "+Integer.toString(numFunciones)+" de "+Integer.toString(n));
+            mostrarFunciones.repaint();
         }else{
             JOptionPane.showMessageDialog (null, "Máximo número de funciones", "Error!", JOptionPane.ERROR_MESSAGE);
         }
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_agregarActionPerformed
 
     private void calcularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_calcularActionPerformed
         informacionProyectos.removeAll();
@@ -421,12 +426,12 @@ public class HorariosGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton agregar;
     private javax.swing.JButton calcular;
     private javax.swing.JButton comenzar;
     private javax.swing.JSpinner horas;
     private javax.swing.JPanel informacionProyectos;
     private javax.swing.JPanel ingresarFuncion;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
