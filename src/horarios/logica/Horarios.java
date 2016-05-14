@@ -63,7 +63,6 @@ public class Horarios {
         this.H = H;
         this.n = n;
         f = new Funcion[n];
-        System.out.println(n+" "+coeficientes.size());
         for (int i = 0; i < coeficientes.size(); i++) {
             f[i] = new Funcion(coeficientes.get(i));
         }
@@ -124,13 +123,15 @@ public class Horarios {
                 rastro[i][j]=gastado;
             }
         }
-        promedio=promedios[n][H]/n;
-        
+        if(promedios[n][H]/n>0.000000000000000001)
+            promedio=promedios[n][H]/n;
+        else
+            promedio=0;
     }
     private void hanselAndGretel(){
         horasPorProyecto=new int[n];
         notasProyecto=new double[n];
-        int prev=H-rastro[n][H];
+        int prev=rastro[n][H];
         for (int i = n-1; i >= 0; i--) {
             horasPorProyecto[i]=rastro[i+1][prev];
             notasProyecto[i]=notas[i][rastro[i+1][prev]];
