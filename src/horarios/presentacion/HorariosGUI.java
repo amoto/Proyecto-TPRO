@@ -6,7 +6,6 @@ package horarios.presentacion;
 import horarios.logica.Horarios;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import javax.swing.*;
 
 /**
@@ -150,6 +149,7 @@ public class HorariosGUI extends javax.swing.JFrame {
         prom.setFont(new java.awt.Font("Bitstream Vera Serif", 0, 18)); // NOI18N
 
         informacionProyectos.setBorder(javax.swing.BorderFactory.createTitledBorder("Información Proyectos"));
+        informacionProyectos.setPreferredSize(new java.awt.Dimension(561, 523));
 
         javax.swing.GroupLayout informacionProyectosLayout = new javax.swing.GroupLayout(informacionProyectos);
         informacionProyectos.setLayout(informacionProyectosLayout);
@@ -227,11 +227,11 @@ public class HorariosGUI extends javax.swing.JFrame {
                                 .addContainerGap()
                                 .addComponent(jLabel3)
                                 .addGap(18, 18, 18)
-                                .addComponent(prom, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(prom, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(48, 48, 48)
                                 .addComponent(informacionProyectos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)))
                 .addComponent(mostrarFunciones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -274,7 +274,7 @@ public class HorariosGUI extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(prom, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
-                        .addComponent(informacionProyectos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(informacionProyectos, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
@@ -342,22 +342,26 @@ public class HorariosGUI extends javax.swing.JFrame {
         informacionProyectos.removeAll();
         informacionProyectos.revalidate();
         informacionProyectos.setLayout(new GridLayout(3,n+1));
-        sol=new Horarios(n, H, coeficientes);
-        int [] horasProyectos=sol.getHorasPorProyecto();
-        double [] notasProyectos=sol.getNotasProyecto();
-        double promedio=sol.getPromedio();
-        prom.setText(Double.toString(promedio));
-        informacionProyectos.add(new JLabel());
-        for (int i = 1; i <n+1 ; i++) {
-             informacionProyectos.add(new JLabel(Integer.toString(i)));
-        }
-        informacionProyectos.add(new JLabel("Horas por proyecto: "));
-        for (int i = 0; i <n; i++) {
-            informacionProyectos.add(new JLabel(Integer.toString(horasProyectos[i])));      
-        }
-        informacionProyectos.add(new JLabel("Nota por proyecto: "));
-        for (int i = 0; i <n; i++) {
-            informacionProyectos.add(new JLabel(Double.toString(notasProyectos[i])));      
+        if(n!=numFunciones){
+            JOptionPane.showMessageDialog (null, "Por favor, ingrese las funciones", "Error!", JOptionPane.ERROR_MESSAGE);
+        }else{
+            sol=new Horarios(n, H, coeficientes);
+            int [] horasProyectos=sol.getHorasPorProyecto();
+            double [] notasProyectos=sol.getNotasProyecto();
+            double promedio=sol.getPromedio();
+            prom.setText(Double.toString(promedio));
+            informacionProyectos.add(new JLabel());
+            for (int i = 1; i <n+1 ; i++) {
+                informacionProyectos.add(new JLabel(Integer.toString(i)));
+            }
+            informacionProyectos.add(new JLabel("Horas por proyecto: "));
+            for (int i = 0; i <n; i++) {
+                informacionProyectos.add(new JLabel(Integer.toString(horasProyectos[i])));      
+            }
+            informacionProyectos.add(new JLabel("Nota por proyecto: "));
+            for (int i = 0; i <n; i++) {
+                informacionProyectos.add(new JLabel(Double.toString(notasProyectos[i])));      
+            }
         }
     }//GEN-LAST:event_calcularActionPerformed
     
