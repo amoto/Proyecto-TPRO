@@ -51,7 +51,7 @@ public class HorariosGUI extends javax.swing.JFrame {
         label3 = new java.awt.Label();
         jLabel2 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
-        jButton1 = new javax.swing.JButton();
+        comenzar = new javax.swing.JButton();
         mostrarFunciones = new javax.swing.JPanel();
         ingresarFuncion = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
@@ -92,11 +92,11 @@ public class HorariosGUI extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Bitstream Vera Sans Mono", 0, 24)); // NOI18N
         jLabel2.setText("Problema 20 - Horarios");
 
-        jButton1.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
-        jButton1.setText("Comenzar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        comenzar.setFont(new java.awt.Font("Cantarell", 0, 18)); // NOI18N
+        comenzar.setText("Comenzar");
+        comenzar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                comenzarActionPerformed(evt);
             }
         });
 
@@ -199,7 +199,7 @@ public class HorariosGUI extends javax.swing.JFrame {
                                         .addGap(6, 6, 6)
                                         .addComponent(jLabel4)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(jButton1)
+                                        .addComponent(comenzar)
                                         .addGap(209, 209, 209))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -259,7 +259,7 @@ public class HorariosGUI extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jButton1))
+                                .addComponent(comenzar))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(25, 25, 25)
                                 .addComponent(jLabel4)))
@@ -289,11 +289,11 @@ public class HorariosGUI extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void comenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comenzarActionPerformed
       try{
           mostrarFunciones.removeAll();
           mostrarFunciones.revalidate();
-          
+          mostrarFunciones.updateUI();
           numFunciones=0;
           n=(int) proyectos.getValue();
           H=(int) horas.getValue();
@@ -308,12 +308,11 @@ public class HorariosGUI extends javax.swing.JFrame {
       }catch(Exception e){
           JOptionPane.showMessageDialog (null, "El grado no es válido", "Error!", JOptionPane.ERROR_MESSAGE);
       }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_comenzarActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        mostrarFunciones.setLayout(new GridLayout(n,1));
         if(numFunciones<n){
-            
-            mostrarFunciones.setLayout(new GridLayout(n,1));
             numFunciones++;
             int [] val=new int[model.length];
             String funcion="Función "+Integer.toString(numFunciones)+": ";
@@ -423,10 +422,10 @@ public class HorariosGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton calcular;
+    private javax.swing.JButton comenzar;
     private javax.swing.JSpinner horas;
     private javax.swing.JPanel informacionProyectos;
     private javax.swing.JPanel ingresarFuncion;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
