@@ -291,11 +291,11 @@ public class HorariosGUI extends javax.swing.JFrame {
 
     private void comenzarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comenzarActionPerformed
       try{
-          System.out.println("entro");
+          //System.out.println("entro");
           mostrarFunciones.removeAll();
           mostrarFunciones.revalidate();
           //mostrarFunciones.repaint();
-          System.out.println("borro");
+          //System.out.println("borro");
           numFunciones=0;
           n=(int) proyectos.getValue();
           H=(int) horas.getValue();
@@ -309,7 +309,7 @@ public class HorariosGUI extends javax.swing.JFrame {
                 grado=Integer.parseInt(JOptionPane.showInputDialog("Inserte el grado del polinomio: "));
             }
             model=new JSpinner[grado+1];
-            System.out.println(n);
+            //System.out.println(n);
             jLabel4.setText("Función "+Integer.toString(numFunciones)+" de "+Integer.toString(n));
             mostrarFunciones.setLayout(new GridLayout(n,1));
             habilitarIngresar();
@@ -339,7 +339,7 @@ public class HorariosGUI extends javax.swing.JFrame {
             coeficientes.add(val);
             //System.out.println(Arrays.toString(val));
             JLabel fi=new JLabel(funcion);
-            System.out.println(funcion+"  ager");
+           /// System.out.println(funcion+"  ager");
             mostrarFunciones.add(fi);
             jLabel4.setText("Función "+Integer.toString(numFunciones)+" de "+Integer.toString(n));
             mostrarFunciones.repaint();
