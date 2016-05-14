@@ -81,7 +81,7 @@ public class HorariosGUI extends javax.swing.JFrame {
 
         horas.setModel(new javax.swing.SpinnerNumberModel(0, 0, 50, 1));
 
-        label4.setFont(new java.awt.Font("DialogInput", 0, 24)); // NOI18N
+        label4.setFont(new java.awt.Font("DialogInput", 1, 24)); // NOI18N
         label4.setText("Daniela Sepúlveda Alzate");
 
         label5.setFont(new java.awt.Font("Dialog", 0, 24)); // NOI18N
@@ -108,11 +108,11 @@ public class HorariosGUI extends javax.swing.JFrame {
         mostrarFunciones.setLayout(mostrarFuncionesLayout);
         mostrarFuncionesLayout.setHorizontalGroup(
             mostrarFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
+            .addGap(0, 488, Short.MAX_VALUE)
         );
         mostrarFuncionesLayout.setVerticalGroup(
             mostrarFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 478, Short.MAX_VALUE)
+            .addGap(0, 477, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout ingresarFuncionLayout = new javax.swing.GroupLayout(ingresarFuncion);
