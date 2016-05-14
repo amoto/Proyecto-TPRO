@@ -133,9 +133,6 @@ public class Horarios {
         horasPorProyecto=new int[n];
         notasProyecto=new double[n];
         int prev=H;
-        for (int i = 0; i < rastro.length; i++) {
-            System.out.println(Arrays.toString(rastro[i]));
-        }
         for (int i = n-1; i >= 0; i--) {
             horasPorProyecto[i]=rastro[i+1][prev];
             notasProyecto[i]=notas[i][rastro[i+1][prev]];

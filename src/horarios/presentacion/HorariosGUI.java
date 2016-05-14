@@ -107,11 +107,11 @@ public class HorariosGUI extends javax.swing.JFrame {
         mostrarFunciones.setLayout(mostrarFuncionesLayout);
         mostrarFuncionesLayout.setHorizontalGroup(
             mostrarFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 488, Short.MAX_VALUE)
+            .addGap(0, 490, Short.MAX_VALUE)
         );
         mostrarFuncionesLayout.setVerticalGroup(
             mostrarFuncionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 477, Short.MAX_VALUE)
+            .addGap(0, 478, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout ingresarFuncionLayout = new javax.swing.GroupLayout(ingresarFuncion);
@@ -155,7 +155,7 @@ public class HorariosGUI extends javax.swing.JFrame {
         informacionProyectos.setLayout(informacionProyectosLayout);
         informacionProyectosLayout.setHorizontalGroup(
             informacionProyectosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 549, Short.MAX_VALUE)
+            .addGap(0, 551, Short.MAX_VALUE)
         );
         informacionProyectosLayout.setVerticalGroup(
             informacionProyectosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
